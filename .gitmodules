@@ -1,0 +1,16 @@
+[submodule ".deps/zh-writing-humanizer"]
+	path = .deps/zh-writing-humanizer
+	url = https://github.com/ruijayfeng/zh-writing-humanizer.git
+	branch = feat/public-narrative
+[submodule ".deps/content-production-skills"]
+	path = .deps/content-production-skills
+	url = https://github.com/ruijayfeng/content-production-skills.git
+	branch = feat/editorial-coverage
+[submodule ".deps/kevinbee-illustrations"]
+	path = .deps/kevinbee-illustrations
+	url = https://github.com/ruijayfeng/kevinbee-illustrations.git
+	branch = feat/narrative-image-roles
+[submodule ".deps/gzh-design-skill"]
+	path = .deps/gzh-design-skill
+	url = https://github.com/ruijayfeng/gzh-design-skill.git
+	branch = feat/case-story-layout
