@@ -9,7 +9,7 @@
 [submodule ".deps/kevinbee-illustrations"]
 	path = .deps/kevinbee-illustrations
 	url = https://github.com/ruijayfeng/kevinbee-illustrations.git
-	branch = feat/narrative-image-roles
+	branch = main
 [submodule ".deps/gzh-design-skill"]
 	path = .deps/gzh-design-skill
 	url = https://github.com/ruijayfeng/gzh-design-skill.git
