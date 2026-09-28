@@ -2,6 +2,8 @@
 
 把四个独立的 Codex Skills 连成一条可选择阶段的文章流程：选题、中文写作与去 AI 味、正文配图与封面、公众号排版。套件本身位于 [`.agents/skills/kevinbee-article-suite`](.agents/skills/kevinbee-article-suite/SKILL.md)；四个上游 Skill 作为固定版本的 Git 子模块接入，仍由各自仓库维护。
 
+凯冰配图 Skill 的介绍、角色资产和生图规则以独立仓库 [kevinbee-illustrations](https://github.com/ruijayfeng/kevinbee-illustrations) 的 [README](https://github.com/ruijayfeng/kevinbee-illustrations/blob/feat/narrative-image-roles/README.md) 与 Skill 为准。本套件不复制它们；跨 Skill 的配合边界见[套件 Skill 维护说明](.agents/skills/kevinbee-article-suite/README.md)。
+
 ## 安装
 
 在希望使用套件的项目目录克隆：
@@ -13,6 +15,10 @@ git clone --recurse-submodules https://github.com/ruijayfeng/kevinbee-article-su
 进入克隆后的项目目录，Codex 就能从 `.agents/skills/` 发现五个 Skill。已有克隆升级时运行 `git pull` 和 `git submodule update --init --recursive`。普通更新以本仓库锁定的子模块提交为准；不要直接运行 `git submodule update --remote`，那会跳到尚未验证的新版本。
 
 这份仓库固定了当前联调版本，适合试用和复核。上游改动目前在各自的功能分支上，尚未合并进上游默认分支。
+
+### 配图 Skill 如何同步
+
+套件的 `.agents/skills/kevinbee-illustrations` 指向 `.deps/kevinbee-illustrations/kevinbee-illustrations`，实际运行的是本仓库锁定的上游提交。独立配图 Skill 更新后，先检查套件交接与配图包，再推进该子模块的提交并运行下方验证；不复制一份 Skill，也不让子模块自动追踪未经验证的最新提交。套件只在阶段路由、文章材料交接或与其他 Skill 配合时保留本地说明，这些例外集中记录在[套件 Skill 维护说明](.agents/skills/kevinbee-article-suite/README.md)。
 
 ## 工作方式
 
