@@ -12,7 +12,7 @@ git clone --recurse-submodules https://github.com/ruijayfeng/kevinbee-article-su
 
 进入克隆后的项目目录，Codex 就能从 `.agents/skills/` 发现六个 Skill。已有克隆升级时运行 `git pull` 和 `git submodule update --init --recursive`。普通更新以本仓库锁定的子模块提交为准；不要直接运行 `git submodule update --remote`，那会跳到尚未验证的新版本。
 
-这份仓库固定了当前联调版本，适合试用和复核。雷达覆盖补查已合入上游 main，锁定 `d09350c`；写作仍锁定功能分支的 `1bdce71`，默认写作基线检查通过，可选路线正在做作者验收。使用时以锁定提交为准。
+五个上游 Skill 均锁定经过核验的 main 提交。雷达覆盖补查锁定 `d09350c`；写作可选配文与结构诊断已获作者认可并合入 main，锁定 `ddc5e48`，默认写作基线检查通过。使用时以本仓库锁定提交为准。
 
 ## 工作方式
 

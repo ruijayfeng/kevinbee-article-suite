@@ -1,7 +1,7 @@
 [submodule ".deps/zh-writing-humanizer"]
 	path = .deps/zh-writing-humanizer
 	url = https://github.com/ruijayfeng/zh-writing-humanizer.git
-	branch = feat/public-narrative
+	branch = main
 [submodule ".deps/content-production-skills"]
 	path = .deps/content-production-skills
 	url = https://github.com/ruijayfeng/content-production-skills.git
