@@ -12,7 +12,7 @@ git clone --recurse-submodules https://github.com/ruijayfeng/kevinbee-article-su
 
 进入克隆后的项目目录，Codex 就能从 `.agents/skills/` 发现五个 Skill。已有克隆升级时运行 `git pull` 和 `git submodule update --init --recursive`。普通更新以本仓库锁定的子模块提交为准；不要直接运行 `git submodule update --remote`，那会跳到尚未验证的新版本。
 
-这份仓库固定了当前联调版本，适合试用和复核。上游改动目前在各自的功能分支上，尚未合并进上游默认分支。
+这份仓库固定了当前联调版本，适合试用和复核。雷达覆盖补查已合入上游 main，锁定 `d09350c`；写作仍锁定功能分支的 `1bdce71`，默认写作基线检查通过，可选路线正在做作者验收。使用时以锁定提交为准。
 
 ## 工作方式
 
@@ -25,6 +25,8 @@ git clone --recurse-submodules https://github.com/ruijayfeng/kevinbee-article-su
 | 编排 | `kevinbee-article-suite` | 判断要走哪些环节、维护交接和成稿回流。 |
 
 套件不要求每次跑完所有环节。提供原始笔记、截图说明、实测结果或旧稿时，直接交给写作环节；文章定稿后再做封面和排版。事实、图片证据和作者经历不能由套件补造。
+
+公众号排版已锁定上游 main 的 `4b10fa6`，默认使用“凯冰·紧凑承接（原生正文版）”，也可选择“橄榄手记”；主题规则以排版 Skill 的主题索引为准。
 
 ## 成稿回流
 
@@ -40,6 +42,7 @@ python3 .agents/skills/kevinbee-article-suite/scripts/test_article_feedback.py
 python3 .agents/skills/kevinbee-article-suite/scripts/test_writing_baseline.py
 python3 .deps/kevinbee-illustrations/kevinbee-illustrations/scripts/validate.py
 python3 .deps/gzh-design-skill/scripts/test_verify_content.py
+python3 .deps/gzh-design-skill/scripts/test_theme_state.py
 ```
 
 这些检查验证交接、快照、写作基线及部分上游包的结构和内容一致性；文章的语言质量仍需对具体成稿做人工审阅。

@@ -9,7 +9,7 @@ BASE = """# Article Package
 ## Status
 stage: {stage}
 target_platform: zhihu
-theme: 凯冰·明亮编辑
+theme: 凯冰·紧凑承接（原生正文版）
 ## Reader Question
 读者问题
 ## Author Context

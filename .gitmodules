@@ -5,7 +5,7 @@
 [submodule ".deps/content-production-skills"]
 	path = .deps/content-production-skills
 	url = https://github.com/ruijayfeng/content-production-skills.git
-	branch = feat/editorial-coverage
+	branch = main
 [submodule ".deps/kevinbee-illustrations"]
 	path = .deps/kevinbee-illustrations
 	url = https://github.com/ruijayfeng/kevinbee-illustrations.git
@@ -13,4 +13,4 @@
 [submodule ".deps/gzh-design-skill"]
 	path = .deps/gzh-design-skill
 	url = https://github.com/ruijayfeng/gzh-design-skill.git
-	branch = feat/case-story-layout
+	branch = main

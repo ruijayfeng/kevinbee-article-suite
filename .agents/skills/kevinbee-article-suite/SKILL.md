@@ -15,7 +15,7 @@ description: Orchestrate a Chinese public article from topic or supplied materia
 4. 需要正文图片时调用 `kevinbee-illustrations` 的 `article-body` 模式。先传入已有图片及其用途，只有文章存在认知断点时才生成隐喻图。
 5. 需要封面时，在标题与正文判断定稿后调用 `kevinbee-illustrations` 的 `cover` 模式；不要把正文隐喻图直接放大成封面。
 6. 需要文章配文时，在正文定稿后调用 `zh-writing-humanizer` 的文章配文路线。配文只从正文抽取，不新增结论或承诺。
-7. 公众号交付调用 `gzh-design`，凯冰内容显式指定“凯冰·明亮编辑”。知乎交付跳过公众号 HTML。
+7. 公众号交付调用 `gzh-design`，凯冰内容显式指定“凯冰·紧凑承接（原生正文版）”。知乎交付跳过公众号 HTML。
 
 ## 成稿回流
 
