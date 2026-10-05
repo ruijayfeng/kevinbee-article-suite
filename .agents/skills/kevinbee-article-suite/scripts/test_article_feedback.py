@@ -47,3 +47,45 @@ with tempfile.TemporaryDirectory() as temp:
     assert json.loads((approved / "meta.json").read_text(encoding="utf-8"))["status"] == "retired"
 
 print("article feedback tests passed")
+
+with tempfile.TemporaryDirectory() as temp:
+    root = Path(temp) / "calibration"
+    before = Path(temp) / "xhs-draft.md"
+    after = Path(temp) / "xhs-final.md"
+    before.write_text("第 1 页：原始文案。\n", encoding="utf-8")
+    after.write_text("第 1 页：作者修改的文案。\n", encoding="utf-8")
+    call(root, "snapshot", str(before), "--platform", "xiaohongshu")
+    draft_path = next((root / "drafts").glob("*/meta.json"))
+    draft = json.loads(draft_path.read_text())
+    assert draft["platform"] == "xiaohongshu"
+    call(root, "capture", str(after), "--draft-id", draft["id"], "--platform", "wechat", ok=False)
+    call(root, "capture", str(after), "--draft-id", draft["id"])
+    meta_path = next((root / "inbox").glob("*/meta.json"))
+    meta = json.loads(meta_path.read_text())
+    assert meta["platform"] == "xiaohongshu"
+    call(root, "approve", meta["id"], "--note", "认可文案；视觉另行确认")
+    assert json.loads((root / "approved" / meta["id"] / "meta.json").read_text())["platform"] == "xiaohongshu"
+    assert meta["id"] in call(root, "list", "--platform", "xiaohongshu").stdout
+    assert meta["id"] not in call(root, "list", "--platform", "wechat").stdout
+
+    # Old snapshots and samples have no platform; listing must not migrate them.
+    del draft["platform"]
+    draft_path.write_text(json.dumps(draft), encoding="utf-8")
+    call(root, "capture", str(after), "--draft-id", draft["id"])
+    legacy_path = next((root / "inbox").glob("*/meta.json"))
+    legacy = json.loads(legacy_path.read_text())
+    assert legacy["platform"] == "unspecified"
+    del legacy["platform"]
+    legacy_path.write_text(json.dumps(legacy), encoding="utf-8")
+    saved = legacy_path.read_bytes()
+    assert legacy["id"] not in call(root, "list", "--platform", "xiaohongshu").stdout
+    assert legacy["id"] in call(root, "list", "--platform", "unspecified").stdout
+    assert legacy_path.read_bytes() == saved
+    call(root, "approve", legacy["id"])
+    call(root, "retire", legacy["id"])
+    assert "platform" not in json.loads((root / "approved" / legacy["id"] / "meta.json").read_text())
+    call(root, "capture", str(after), "--platform", "xiaohongshu")
+    direct = next((root / "inbox").glob("*/meta.json"))
+    assert json.loads(direct.read_text())["platform"] == "xiaohongshu"
+
+print("platform inheritance and legacy compatibility tests passed")

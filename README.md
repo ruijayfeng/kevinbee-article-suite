@@ -1,6 +1,6 @@
 # 凯冰内容生产套件
 
-把四个独立的 Codex Skills 连成一条可选择阶段的文章流程：选题、中文写作与去 AI 味、正文配图与封面、公众号排版。套件本身位于 [`.agents/skills/kevinbee-article-suite`](.agents/skills/kevinbee-article-suite/SKILL.md)；四个上游 Skill 作为固定版本的 Git 子模块接入，仍由各自仓库维护。
+把五个独立的 Codex Skills 连成可选择阶段的内容流程：选题、中文写作与去 AI 味、正文配图与封面、公众号排版、小红书图文。套件本身位于 [`.agents/skills/kevinbee-article-suite`](.agents/skills/kevinbee-article-suite/SKILL.md)；五个上游 Skill 作为固定版本的 Git 子模块接入，仍由各自仓库维护。
 
 ## 安装
 
@@ -10,7 +10,7 @@
 git clone --recurse-submodules https://github.com/ruijayfeng/kevinbee-article-suite.git
 ```
 
-进入克隆后的项目目录，Codex 就能从 `.agents/skills/` 发现五个 Skill。已有克隆升级时运行 `git pull` 和 `git submodule update --init --recursive`。普通更新以本仓库锁定的子模块提交为准；不要直接运行 `git submodule update --remote`，那会跳到尚未验证的新版本。
+进入克隆后的项目目录，Codex 就能从 `.agents/skills/` 发现六个 Skill。已有克隆升级时运行 `git pull` 和 `git submodule update --init --recursive`。普通更新以本仓库锁定的子模块提交为准；不要直接运行 `git submodule update --remote`，那会跳到尚未验证的新版本。
 
 这份仓库固定了当前联调版本，适合试用和复核。雷达覆盖补查已合入上游 main，锁定 `d09350c`；写作仍锁定功能分支的 `1bdce71`，默认写作基线检查通过，可选路线正在做作者验收。使用时以锁定提交为准。
 
@@ -22,11 +22,22 @@ git clone --recurse-submodules https://github.com/ruijayfeng/kevinbee-article-su
 | 写作 | `zh-writing-humanizer` | 用原始材料写稿或改稿，检查中文表达和 AI 味。 |
 | 图片 | `kevinbee-illustrations` | 判断正文是否需要新图，制作适合的正文图或封面。 |
 | 排版 | `gzh-design` | 定稿后制作公众号 HTML；知乎稿可跳过。 |
+| 小红书 | `kaibing-xhs-images` | 从原始素材或文章制作逐页文案、封面、内页和配文；写作 Skill 复核事实与语言。 |
 | 编排 | `kevinbee-article-suite` | 判断要走哪些环节、维护交接和成稿回流。 |
 
-套件不要求每次跑完所有环节。提供原始笔记、截图说明、实测结果或旧稿时，直接交给写作环节；文章定稿后再做封面和排版。事实、图片证据和作者经历不能由套件补造。
+套件不要求每次跑完所有环节。公众号和知乎稿从原始材料进入写作；小红书从原始素材或已有文章进入图文规划，复核逐页文案后出图，不先写长文。事实、图片证据和作者经历不能由套件补造。
 
 公众号排版已锁定上游 main 的 `4b10fa6`，默认使用“凯冰·紧凑承接（原生正文版）”，也可选择“橄榄手记”；主题规则以排版 Skill 的主题索引为准。
+
+## 小红书使用
+
+可直接说：“用套件把这些笔记做成小红书图文”“把这篇文章改成小红书版本”“只规划不生图”“先做封面”或“修改第 3 页”。
+
+小红书主写逐页文案和发布配文，中文写作 Skill 用基础规则复核，再同步文案和提示词、制作图片。封面与内页采用新 Skill 自带的已确认风格和 Q 版角色参考；当前任务明确授权整套时继续完成，不重复确认已有偏好。
+
+交付支持规划、单封面和整套。整套需核对页序、最终 PNG 尺寸、图片与提示词文件、生成记录，以及中文、身份、证据与手机阅读。文案或图片变化后旧核验失效，受影响页面重新制作和复核。具体字段与命令见 [小红书交接](.agents/skills/kevinbee-article-suite/references/xiaohongshu-handoff.md)。
+
+小红书审阅稿包含逐页文字、发布标题与配文；快照记录平台，候选继承它。以后最多参考两份同平台且已认可、已复盘的文案；认可文案不改变视觉基准。三组不生图的流程样例见 [验证记录](docs/validation/xiaohongshu/README.md)。
 
 ## 成稿回流
 
@@ -38,6 +49,8 @@ git clone --recurse-submodules https://github.com/ruijayfeng/kevinbee-article-su
 
 ```bash
 python3 .agents/skills/kevinbee-article-suite/scripts/test_check_handoff.py
+python3 .agents/skills/kevinbee-article-suite/scripts/test_xhs_delivery.py
+python3 .agents/skills/kevinbee-article-suite/scripts/test_suite_installation.py
 python3 .agents/skills/kevinbee-article-suite/scripts/test_article_feedback.py
 python3 .agents/skills/kevinbee-article-suite/scripts/test_writing_baseline.py
 python3 .deps/kevinbee-illustrations/kevinbee-illustrations/scripts/validate.py
@@ -45,8 +58,8 @@ python3 .deps/gzh-design-skill/scripts/test_verify_content.py
 python3 .deps/gzh-design-skill/scripts/test_theme_state.py
 ```
 
-这些检查验证交接、快照、写作基线及部分上游包的结构和内容一致性；文章的语言质量仍需对具体成稿做人工审阅。
+这些检查验证交接、版本失效、快照与平台继承、写作基线、固定依赖和部分上游包的结构一致性。小红书测试图片是临时合成夹具，不代表实际生图或视觉验收；文章与图片质量仍需对具体成品审阅。
 
 ## 依赖与许可
 
-本仓库的编排 Skill 使用 MIT 许可。各子模块遵循各自仓库的许可，尤其 `gzh-design-skill` 使用 AGPL。子模块固定提交，不复制、修改或替代其许可文件。`content-production-skills` 当前仓库未提供独立许可文件；使用与再分发时应以其仓库条款为准。
+本仓库的编排 Skill 使用 MIT 许可。小红书依赖保留 MIT、NOTICE 和上游 LICENSES。各子模块遵循各自仓库的许可，尤其 `gzh-design-skill` 使用 AGPL。子模块固定提交，不复制、修改或替代其许可文件。`content-production-skills` 当前仓库未提供独立许可文件；使用与再分发时应以其仓库条款为准。

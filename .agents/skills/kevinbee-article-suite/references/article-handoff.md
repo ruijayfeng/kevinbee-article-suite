@@ -7,7 +7,7 @@
 
 ## Status
 stage: material | drafting | illustrated | layout | publish-ready
-target_platform: wechat | zhihu | other
+target_platform: wechat | zhihu | xiaohongshu | other
 
 ## Reader Question
 这篇文章要回答的读者问题。
@@ -30,3 +30,5 @@ target_platform: wechat | zhihu | other
 只有确实有助于这篇文章时，才补 `Author Context`、`Cases`、`Voice Evidence`、`story_map`、`Images`、`Cover` 或 `Share Copy`。不要为填表而制造案例卡，也不要在写作前用案例卡替换原始材料。
 
 图片、封面和配文是正文定稿后的独立交接；需要时记录产物路径及它与正文的对应位置。概念图不能记作测试结果。公众号发布时还需记录 HTML、预览和图片实际上传后的检查结果。
+
+小红书使用 [专用交接格式](xiaohongshu-handoff.md)，增加 `Xiaohongshu` 与 `XHS Pages` 区。`Draft.markdown` 指向从逐页文案和配文导出的审阅稿，`Delivery.verification` 指向版本核验 JSON。文件路径均相对于文章包；旧公众号和知乎文章包不需要这些新增区。

@@ -14,3 +14,7 @@
 	path = .deps/gzh-design-skill
 	url = https://github.com/ruijayfeng/gzh-design-skill.git
 	branch = main
+[submodule ".deps/kaibing-xhs-images"]
+	path = .deps/kaibing-xhs-images
+	url = https://github.com/ruijayfeng/kaibing-xhs-images.git
+	branch = main
