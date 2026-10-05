@@ -31,6 +31,7 @@ for name in ("LICENSE", "NOTICE.md"):
     assert (dependency / name).is_file()
 assert (dependency / "LICENSES").is_dir()
 xhs = entries / "kaibing-xhs-images"
+assert (xhs / "scripts/check_publish_copy.py").is_file(), "missing upstream publish-copy checker"
 manifest = json.loads((xhs / "assets/approved-style-v1/manifest.json").read_text(encoding="utf-8"))
 assert (xhs / manifest["identity_reference"]).is_file()
 for item in manifest["pages"]:

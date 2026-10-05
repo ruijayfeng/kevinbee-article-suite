@@ -203,6 +203,25 @@ Synthetic fixture only.
         self.assertNotIn("Synthetic visual fixture", text)
         self.assertNotIn("**Position**", text)
 
+    def test_production_labels_cannot_be_verified_for_publishing(self) -> None:
+        path = self.root / "outline.md"
+        old = path.read_text()
+        path.write_text(old.replace("- Points: 原始文案", "- Points: 原始文案\n概念示意，非工具实测", 1), encoding="utf-8")
+        self.export()
+        self.verify(ok=False)
+        self.ready(ok=False)
+
+    def test_reader_conditions_and_explicit_disclosure_remain_valid(self) -> None:
+        path = self.root / "outline.md"
+        old = path.read_text()
+        path.write_text(old.replace("- Points: 原始文案", "- Points: 结果只适用于单人任务\n概念示意", 1)
+                       .replace("**Visual Concept**: Synthetic visual fixture",
+                                "**Reader Disclosure**: 概念示意\n**Disclosure Reason**: 教学界面需与真实截图区分\n**Visual Concept**: Synthetic visual fixture", 1), encoding="utf-8")
+        (self.root / "caption.md").write_text("这篇只介绍思路，未做网页或视频效果测试。\n", encoding="utf-8")
+        self.export()
+        self.verify()
+        self.ready()
+
     def test_protect_sources_from_export_and_verification(self) -> None:
         self.replace("markdown: `review-copy.md`", "markdown: `outline.md`")
         self.call("xhs_delivery.py", "review-copy", str(self.package), ok=False)

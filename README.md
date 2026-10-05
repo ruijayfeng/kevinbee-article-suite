@@ -12,7 +12,7 @@ git clone --recurse-submodules https://github.com/ruijayfeng/kevinbee-article-su
 
 进入克隆后的项目目录，Codex 就能从 `.agents/skills/` 发现六个 Skill。已有克隆升级时运行 `git pull` 和 `git submodule update --init --recursive`。普通更新以本仓库锁定的子模块提交为准；不要直接运行 `git submodule update --remote`，那会跳到尚未验证的新版本。
 
-五个上游 Skill 均锁定经过核验的 main 提交。雷达覆盖补查锁定 `d09350c`；写作可选配文与结构诊断已获作者认可并合入 main，锁定 `ddc5e48`，默认写作基线检查通过。使用时以本仓库锁定提交为准。
+五个上游 Skill 均锁定经过核验的提交。雷达覆盖补查锁定 `d09350c`；写作可选配文与结构诊断已获作者认可并合入 main，锁定 `ddc5e48`，默认写作基线检查通过。小红书发布文案修复锁定本地修复提交 `8dfc5dc`，尚未推送；当前工作区已接入该版本。使用时以本仓库锁定提交为准。
 
 ## 工作方式
 
@@ -35,7 +35,7 @@ git clone --recurse-submodules https://github.com/ruijayfeng/kevinbee-article-su
 
 小红书主写逐页文案和发布配文，中文写作 Skill 用基础规则复核，再同步文案和提示词、制作图片。封面与内页采用新 Skill 自带的已确认风格和 Q 版角色参考；当前任务明确授权整套时继续完成，不重复确认已有偏好。
 
-交付支持规划、单封面和整套。整套需核对页序、最终 PNG 尺寸、图片与提示词文件、生成记录，以及中文、身份、证据与手机阅读。文案或图片变化后旧核验失效，受影响页面重新制作和复核。具体字段与命令见 [小红书交接](.agents/skills/kevinbee-article-suite/references/xiaohongshu-handoff.md)。
+交付支持规划、单封面和整套。整套需核对页序、最终 PNG 尺寸、图片与提示词文件、生成记录，以及中文、身份、证据与手机阅读。素材分类留在制作记录中；发布文案检查会拦住常见制作标签，确需上图的读者说明需记录内容与原因。文案或图片变化后旧核验失效，受影响页面重新制作和复核。具体字段与命令见 [小红书交接](.agents/skills/kevinbee-article-suite/references/xiaohongshu-handoff.md)。
 
 小红书审阅稿包含逐页文字、发布标题与配文；快照记录平台，候选继承它。以后最多参考两份同平台且已认可、已复盘的文案；认可文案不改变视觉基准。三组不生图的流程样例见 [验证记录](docs/validation/xiaohongshu/README.md)。
 

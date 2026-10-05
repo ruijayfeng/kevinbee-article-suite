@@ -13,6 +13,7 @@ import json
 from pathlib import Path
 import re
 import struct
+import subprocess
 import sys
 import zlib
 
@@ -169,6 +170,13 @@ def current_state(package: Path, spec: dict) -> dict:
     if resolve(package, spec["draft"]["markdown"]).read_text(encoding="utf-8") != review_text(package, spec):
         raise ValueError("review copy is out of sync; update outline/caption and export review-copy")
     plans = outline_pages(resolve(package, values["outline"]), spec["count"])
+    copy_checker = Path(__file__).resolve().parents[2] / "kaibing-xhs-images/scripts/check_publish_copy.py"
+    if not copy_checker.is_file():
+        raise ValueError("missing kaibing-xhs-images publish-copy checker; install the suite's fixed dependencies")
+    copy_check = subprocess.run([sys.executable, str(copy_checker), str(resolve(package, values["outline"]))],
+                                text=True, capture_output=True)
+    if copy_check.returncode:
+        raise ValueError(copy_check.stdout.strip() or copy_check.stderr.strip() or "publish copy check failed")
     pages = []
     for row, plan in zip(spec["pages"], plans):
         image = file_state(package, row["image"])
