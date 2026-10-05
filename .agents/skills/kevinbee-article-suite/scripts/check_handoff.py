@@ -5,6 +5,7 @@ import argparse
 from pathlib import Path
 import re
 import sys
+from xhs_delivery import validate as validate_xhs
 
 REQUIRED = [
     "## Status", "## Reader Question", "## Sources",
@@ -51,6 +52,8 @@ def main() -> int:
         errors.append("missing stage")
     if not platform:
         errors.append("missing target_platform")
+    if platform and platform.group(1) == "xiaohongshu":
+        errors.extend(validate_xhs(package, args.publish_ready))
     raw_paths = BACKTICK_PATH.findall(text)
     raw_paths.extend(PATH_FIELD.findall(text))
     for raw in raw_paths:

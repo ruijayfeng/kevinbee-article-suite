@@ -1,13 +1,17 @@
 ---
 name: kevinbee-article-suite
-description: Orchestrate a Chinese public article from topic or supplied materials through writing, visuals, platform delivery, and user-approved article feedback. Use when the user wants the four article skills connected or wants later articles calibrated against their accepted revisions; skip unused stages.
+description: Orchestrate Chinese content for WeChat, Zhihu, or Xiaohongshu from topics, raw materials, or existing articles through writing, visuals, delivery, and user-approved copy feedback; skip unused stages.
 ---
 
 # 凯冰内容生产套件
 
 把选题、写作、正文图片和平台交付连成一条可审查的文章流程。套件负责路由和交接；各专项 Skill 保留自己的规则与真值源。
 
+小红书图文、封面、文章转图文或指定页修改，先读 [xiaohongshu-handoff.md](references/xiaohongshu-handoff.md)：`kaibing-xhs-images` 主导分析、逐页文案、配文和图片，`zh-writing-humanizer` 只用基础规则复核事实与语言。原始素材可直接做图文，不先写长文。只规划停在文案；只要封面按一页交付；整套按计划页数验收。跨平台任务各建文章包，共享来源材料。
+
 ## 路由
+
+以下步骤用于公众号与知乎文章；小红书使用上面的专用分支。
 
 1. 先识别用户已经给出的内容：既定题目、作者材料、公开来源、平台、现有草稿、图片与目标交付。不要为了跑满流程重复询问或调用无关环节。
 2. 用户要找近期方向时，调用 `zhihu-ai-editorial`。题目已经确定时，直接核对必要来源并进入写作，不强制先跑热点雷达。
@@ -15,7 +19,7 @@ description: Orchestrate a Chinese public article from topic or supplied materia
 4. 需要正文图片时调用 `kevinbee-illustrations` 的 `article-body` 模式。先传入已有图片及其用途，只有文章存在认知断点时才生成隐喻图。
 5. 需要封面时，在标题与正文判断定稿后调用 `kevinbee-illustrations` 的 `cover` 模式；不要把正文隐喻图直接放大成封面。
 6. 需要文章配文时，在正文定稿后调用 `zh-writing-humanizer` 的文章配文路线。配文只从正文抽取，不新增结论或承诺。
-7. 公众号交付调用 `gzh-design`，凯冰内容显式指定“凯冰·明亮编辑”。知乎交付跳过公众号 HTML。
+7. 公众号交付调用 `gzh-design`，凯冰内容显式指定“凯冰·紧凑承接（原生正文版）”。知乎交付跳过公众号 HTML。
 
 ## 成稿回流
 

@@ -2,6 +2,10 @@
 
 本流程只用于用户自己的文章和明确授权作为写作参考的文本。外部作者的文章可用于分析叙事手法，不进入“我的已认可文章”库。
 
+小红书回流保存逐页文案与配文的纯文本审阅稿，生成方法见 [xiaohongshu-handoff.md](xiaohongshu-handoff.md)。快照命令加 `--platform xiaohongshu`；公众号和知乎可分别传 `wechat`、`zhihu`。候选使用 `--draft-id` 时继承快照平台，明确传入冲突平台会失败。历史元数据缺少 `platform` 视为 `unspecified`，不重写旧记录。
+
+小红书选样本先运行 `scripts/article_feedback.py list --platform xiaohongshu`，只从已认可且复盘完成的同平台样本中选最多两份相关题材文案，提供给小红书起稿和写作复核。未指定平台的旧文章不自动参与。认可文案与认可视觉分别记录；文案收录不修改小红书 Skill 的视觉基准，图片沿用该 Skill 的候选、备份与生成记录。
+
 ## 收录
 
 每次向用户交付完整文章供审阅，先把**实际交付的版本**保存成 `.md` 文件，运行 `scripts/article_feedback.py snapshot <交付稿文件> --label <简短标题>`，把返回的快照 ID 记入本篇 `article-package.md` 的 `Draft` 区。用户可能直接覆盖交付文件，所以不能只记原路径。聊天中交付的全文也先落盘再留快照。`calibration/drafts/` 是本地留档区，不要求用户管理。

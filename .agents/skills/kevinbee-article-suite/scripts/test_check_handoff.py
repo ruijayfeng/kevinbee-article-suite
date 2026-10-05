@@ -9,7 +9,7 @@ BASE = """# Article Package
 ## Status
 stage: {stage}
 target_platform: zhihu
-theme: 凯冰·明亮编辑
+theme: 凯冰·紧凑承接（原生正文版）
 ## Reader Question
 读者问题
 ## Author Context
@@ -46,4 +46,11 @@ with tempfile.TemporaryDirectory() as td:
     package.write_text(BASE.format(stage="publish-ready", revision="final"), encoding="utf-8")
     package.write_text(package.read_text(encoding="utf-8") + "\n【待补素材】\n", encoding="utf-8")
     assert run(package, True) == 1
+    wechat = BASE.format(stage="publish-ready", revision="final").replace("target_platform: zhihu", "target_platform: wechat")
+    package.write_text(wechat, encoding="utf-8")
+    assert run(package, True) == 1
+    for name in ("article.html", "preview.html"):
+        (root / name).write_text("fixture", encoding="utf-8")
+    package.write_text(wechat + "\n- html: `article.html`\n- preview: `preview.html`\n", encoding="utf-8")
+    assert run(package, True) == 0
 print("check_handoff tests passed")

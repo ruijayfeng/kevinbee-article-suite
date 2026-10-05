@@ -12,6 +12,7 @@ import sys
 
 
 DEFAULT_ROOT = Path(__file__).resolve().parents[4] / "calibration"
+PLATFORMS = ("wechat", "zhihu", "xiaohongshu", "other", "unspecified")
 
 
 def stamp() -> str:
@@ -51,6 +52,7 @@ def snapshot(args: argparse.Namespace) -> None:
         "captured_at": datetime.now(timezone.utc).isoformat(),
         "before_sha256": digest(article),
         "source_name": source.name,
+        "platform": args.platform or "unspecified",
     })
     print(f"draft snapshot {draft_id} in {folder}")
 
@@ -68,8 +70,14 @@ def saved_draft(root: Path, draft_id: str) -> bytes:
 
 def capture(args: argparse.Namespace) -> None:
     source, article = read_article(args.article)
+    platform = args.platform or "unspecified"
     if args.draft_id:
         before_data = saved_draft(args.root, args.draft_id)
+        draft_meta = json.loads((args.root / "drafts" / args.draft_id / "meta.json").read_text(encoding="utf-8"))
+        inherited = draft_meta.get("platform", "unspecified")
+        if args.platform and inherited != "unspecified" and args.platform != inherited:
+            raise ValueError("platform conflicts with the saved draft")
+        platform = args.platform or inherited
     else:
         before_data = read_article(args.before)[1] if args.before else None
     sample_id = f"{stamp()}-{digest(article)[:10]}"
@@ -87,6 +95,7 @@ def capture(args: argparse.Namespace) -> None:
         "before_sha256": digest(before_data) if before_data else None,
         "draft_snapshot_id": args.draft_id or None,
         "source_name": source.name,
+        "platform": platform,
         "user_note": args.note or "",
         "supersedes": args.supersedes or None,
     })
@@ -149,7 +158,10 @@ def list_samples(args: argparse.Namespace) -> None:
     for state in ("inbox", "approved"):
         for folder in sorted((args.root / state).glob("*/meta.json")):
             meta = json.loads(folder.read_text(encoding="utf-8"))
-            print(f"{meta['id']}\t{meta['status']}\t{meta['label']}")
+            platform = meta.get("platform", "unspecified")
+            if args.platform and platform != args.platform:
+                continue
+            print(f"{meta['id']}\t{meta['status']}\t{meta['label']}\t{platform}")
 
 
 def main() -> int:
@@ -159,6 +171,7 @@ def main() -> int:
     p = sub.add_parser("snapshot")
     p.add_argument("article")
     p.add_argument("--label")
+    p.add_argument("--platform", choices=PLATFORMS)
     p = sub.add_parser("capture")
     p.add_argument("article")
     before = p.add_mutually_exclusive_group()
@@ -167,13 +180,15 @@ def main() -> int:
     p.add_argument("--label")
     p.add_argument("--note")
     p.add_argument("--supersedes")
+    p.add_argument("--platform", choices=PLATFORMS)
     p = sub.add_parser("approve")
     p.add_argument("sample_id")
     p.add_argument("--note")
     p = sub.add_parser("retire")
     p.add_argument("sample_id")
     p.add_argument("--note")
-    sub.add_parser("list")
+    p = sub.add_parser("list")
+    p.add_argument("--platform", choices=PLATFORMS)
     args = parser.parse_args()
     args.root = args.root.expanduser().resolve()
     try:
