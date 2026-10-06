@@ -37,7 +37,7 @@ assert (xhs / manifest["identity_reference"]).is_file()
 for item in manifest["pages"]:
     data = (xhs / item["file"]).read_bytes()
     assert hashlib.sha256(data).hexdigest() == item["sha256"], item["file"]
-for name in ("kaibing-integration.md", "approved-style.md", "config/default-preferences.md",
+for name in ("kaibing-integration.md", "approved-style.md", "editorial-content.md", "config/default-preferences.md",
              "kevinbee/ip-core.md", "kevinbee/character-model.md", "kevinbee/source-manifest.yaml"):
     assert (xhs / "references" / name).is_file(), name
 print(f"six skill entries and fixed XHS assets passed ({head[:7]})")
