@@ -18,7 +18,7 @@ import sys
 import zlib
 
 PENDING = re.compile(r"【待补|TODO|TBD|待补素材|图片URL", re.I)
-VISUAL_CHECKS = ("text", "identity", "evidence", "phone_readability")
+VISUAL_CHECKS = ("text", "identity", "evidence", "phone_readability", "composition")
 
 
 def block(text: str, heading: str) -> str:
@@ -231,7 +231,7 @@ def main() -> int:
     verify = sub.add_parser("verify", help="record file checks; visual review stays pending by default")
     verify.add_argument("package", type=Path)
     verify.add_argument("--visual-reviewed", action="store_true",
-                        help="attest that text, identity, evidence and phone readability were actually reviewed")
+                        help="attest that text, identity, evidence, phone readability and composition were actually reviewed")
     args = parser.parse_args()
     try:
         package = args.package.expanduser().resolve()

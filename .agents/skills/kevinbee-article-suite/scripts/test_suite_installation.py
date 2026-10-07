@@ -32,11 +32,12 @@ for name in ("LICENSE", "NOTICE.md"):
 assert (dependency / "LICENSES").is_dir()
 xhs = entries / "kaibing-xhs-images"
 assert (xhs / "scripts/check_publish_copy.py").is_file(), "missing upstream publish-copy checker"
-manifest = json.loads((xhs / "assets/approved-style-v1/manifest.json").read_text(encoding="utf-8"))
-assert (xhs / manifest["identity_reference"]).is_file()
-for item in manifest["pages"]:
-    data = (xhs / item["file"]).read_bytes()
-    assert hashlib.sha256(data).hexdigest() == item["sha256"], item["file"]
+for manifest_path in ("assets/approved-style-v1/manifest.json", "assets/composition-examples/manifest.json"):
+    manifest = json.loads((xhs / manifest_path).read_text(encoding="utf-8"))
+    assert (xhs / manifest["identity_reference"]).is_file()
+    for item in manifest["pages"]:
+        data = (xhs / item["file"]).read_bytes()
+        assert hashlib.sha256(data).hexdigest() == item["sha256"], item["file"]
 for name in ("kaibing-integration.md", "approved-style.md", "editorial-content.md", "config/default-preferences.md",
              "kevinbee/ip-core.md", "kevinbee/character-model.md", "kevinbee/source-manifest.yaml"):
     assert (xhs / "references" / name).is_file(), name

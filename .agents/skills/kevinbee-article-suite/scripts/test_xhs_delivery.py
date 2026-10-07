@@ -161,6 +161,18 @@ Synthetic fixture only.
         self.verify()
         self.ready()
 
+    def test_old_visual_attestation_requires_composition_review(self) -> None:
+        self.verify()
+        path = self.root / "verification.json"
+        report = json.loads(path.read_text())
+        report["visual_checks"].pop("composition")
+        path.write_text(json.dumps(report), encoding="utf-8")
+        self.ready(ok=False)
+        self.verify(visual=False)
+        self.ready(ok=False)
+        self.verify()
+        self.ready()
+
     def test_copy_changes_require_new_prompt_and_image(self) -> None:
         self.verify()
         old = (self.root / "outline.md").read_text()
