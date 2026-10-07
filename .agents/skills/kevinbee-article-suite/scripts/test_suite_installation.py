@@ -21,6 +21,13 @@ for name in names:
 config = configparser.ConfigParser()
 config.read(suite / ".gitmodules")
 assert len(config.sections()) == 5, "expected five fixed upstream dependencies"
+manifest = json.loads((suite / "release-manifest.json").read_text(encoding="utf-8"))
+assert {item["path"] for item in manifest["dependencies"]} == {config[s]["path"] for s in config.sections()}
+for item in manifest["dependencies"]:
+    dep_head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=suite / item["path"], text=True).strip()
+    gitlink = subprocess.check_output(["git", "ls-files", "--stage", item["path"]], cwd=suite, text=True).split()
+    assert item["commit"] == dep_head == gitlink[1], f"unlocked dependency: {item['path']}"
+    assert item["repository"] == config[f'submodule "{item["path"]}"']["url"]
 section = config['submodule ".deps/kaibing-xhs-images"']
 assert section["url"] == "https://github.com/ruijayfeng/kaibing-xhs-images.git"
 dependency = suite / section["path"]
@@ -32,13 +39,13 @@ for name in ("LICENSE", "NOTICE.md"):
 assert (dependency / "LICENSES").is_dir()
 xhs = entries / "kaibing-xhs-images"
 assert (xhs / "scripts/check_publish_copy.py").is_file(), "missing upstream publish-copy checker"
-for manifest_path in ("assets/approved-style-v1/manifest.json", "assets/composition-examples/manifest.json"):
+for manifest_path in ("assets/approved-style-v1/manifest.json", "assets/composition-examples/manifest.json", "assets/approved-cover-v1/manifest.json"):
     manifest = json.loads((xhs / manifest_path).read_text(encoding="utf-8"))
     assert (xhs / manifest["identity_reference"]).is_file()
     for item in manifest["pages"]:
         data = (xhs / item["file"]).read_bytes()
         assert hashlib.sha256(data).hexdigest() == item["sha256"], item["file"]
-for name in ("kaibing-integration.md", "approved-style.md", "editorial-content.md", "config/default-preferences.md",
+for name in ("kaibing-integration.md", "approved-style.md", "editorial-content.md", "cover-concept.md", "config/default-preferences.md",
              "kevinbee/ip-core.md", "kevinbee/character-model.md", "kevinbee/source-manifest.yaml"):
     assert (xhs / "references" / name).is_file(), name
 print(f"six skill entries and fixed XHS assets passed ({head[:7]})")

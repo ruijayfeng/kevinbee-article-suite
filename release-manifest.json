@@ -1,0 +1,33 @@
+{
+  "version": "1.0.0",
+  "date": "2026-10-08",
+  "dependencies": [
+    {
+      "path": ".deps/zh-writing-humanizer",
+      "repository": "https://github.com/ruijayfeng/zh-writing-humanizer.git",
+      "commit": "ddc5e4824d98b2c4fe7ad706dcb19fa9871de011"
+    },
+    {
+      "path": ".deps/content-production-skills",
+      "repository": "https://github.com/ruijayfeng/content-production-skills.git",
+      "commit": "d09350c6f2ddc416ab644473aa5aad6d7f48a29c"
+    },
+    {
+      "path": ".deps/kevinbee-illustrations",
+      "repository": "https://github.com/ruijayfeng/kevinbee-illustrations.git",
+      "commit": "c2b81be94534e6f763709817aec77042b49a1674",
+      "release": "v1.0.0"
+    },
+    {
+      "path": ".deps/gzh-design-skill",
+      "repository": "https://github.com/ruijayfeng/gzh-design-skill.git",
+      "commit": "4b10fa6e70029a90ae3a4feab4f59bc0b5b7da9f"
+    },
+    {
+      "path": ".deps/kaibing-xhs-images",
+      "repository": "https://github.com/ruijayfeng/kaibing-xhs-images.git",
+      "commit": "0f47a07a84e34768363447285169c3923ee50465",
+      "release": "v1.2.0"
+    }
+  ]
+}

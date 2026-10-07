@@ -29,6 +29,8 @@ target_platform: wechat | zhihu | xiaohongshu | other
 
 只有确实有助于这篇文章时，才补 `Author Context`、`Cases`、`Voice Evidence`、`story_map`、`Images`、`Cover` 或 `Share Copy`。不要为填表而制造案例卡，也不要在写作前用案例卡替换原始材料。
 
+需要封面时，在 Cover 区记录方案路径、阅读承诺的正文依据及目标画幅；方案由 kevinbee-illustrations 的封面模式维护，保留选定事件、表现方式、素材用途和制作路线，套件不另选模板。
+
 图片、封面和配文是正文定稿后的独立交接；需要时记录产物路径及它与正文的对应位置。概念图不能记作测试结果。公众号发布时还需记录 HTML、预览和图片实际上传后的检查结果。
 
 小红书使用 [专用交接格式](xiaohongshu-handoff.md)，增加 `Xiaohongshu` 与 `XHS Pages` 区。`Draft.markdown` 指向从逐页文案和配文导出的审阅稿，`Delivery.verification` 指向版本核验 JSON。文件路径均相对于文章包；旧公众号和知乎文章包不需要这些新增区。

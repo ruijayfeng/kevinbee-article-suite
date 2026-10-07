@@ -12,7 +12,13 @@ git clone --recurse-submodules https://github.com/ruijayfeng/kevinbee-article-su
 
 进入克隆后的项目目录，Codex 就能从 `.agents/skills/` 发现六个 Skill。已有克隆升级时运行 `git pull` 和 `git submodule update --init --recursive`。普通更新以本仓库锁定的子模块提交为准；不要直接运行 `git submodule update --remote`，那会跳到尚未验证的新版本。
 
-五个上游 Skill 均锁定经过核验的提交。雷达覆盖补查锁定 `d09350c`；写作可选配文与结构诊断已获作者认可并合入 main，锁定 `ddc5e48`，默认写作基线检查通过。小红书升级至 v1.1.0，锁定 `f97bdfd`：内容关系决定构图，凯冰按事件参与，完整文案、图内标签和手机阅读纳入质量复核；共享参考直接使用根目录资产。单独安装可使用对应 Release ZIP，套件使用本仓库锁定提交。
+五个上游 Skill 均锁定经过核验的提交。雷达覆盖补查锁定 `d09350c`；写作可选配文与结构诊断已获作者认可并合入 main，锁定 `ddc5e48`，默认写作基线检查通过。小红书升级至 v1.2.0，锁定 `0f47a07`：补齐封面内容构思与主题视觉，并附带2026-10-08已认可的凯冰封面参考。文章配图 v1.0.0 锁定 `c2b81be`：补充封面表现方式、真实素材制作和内容适配检查。共享参考直接使用根目录资产。单独安装可使用对应 Release ZIP，套件使用本仓库锁定提交。
+
+## v1.0.0 固定发行
+
+[发行版](https://github.com/ruijayfeng/kevinbee-article-suite/releases/tag/v1.0.0)提供包含五个固定依赖的完整 tar.gz 安装快照；解压后在该目录使用 Codex，即可发现六个 Skill。快照不含 Git 历史；需要持续通过 Git 更新时使用上面的递归克隆方式。GitHub 自动生成的 Source code 压缩包不包含子模块内容，不能替代完整安装快照。
+
+[版本清单](release-manifest.json)记录各依赖的精确提交。本次封面升级的认可范围与验证见[发布核验](docs/validation/cover-release-2026-10-08.md)。
 
 ## 工作方式
 

@@ -1,6 +1,8 @@
 ---
 name: kevinbee-article-suite
 description: Orchestrate Chinese content for WeChat, Zhihu, or Xiaohongshu from topics, raw materials, or existing articles through writing, visuals, delivery, and user-approved copy feedback; skip unused stages.
+metadata:
+  version: "1.0.0"
 ---
 
 # 凯冰内容生产套件
